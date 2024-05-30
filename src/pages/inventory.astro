@@ -1,12 +1,43 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getSession } from 'auth-astro/server';
+const session = await getSession(Astro.request);
+
+if(session === null) {
+	return Astro.redirect("/");
+}
+
+// make the host an env var?
+// set up a prod twitch app with new client ID and secret — add those to production context on netlify
+// add a sign out button into header or whatever
+
+const res = await fetch(
+`http://localhost:8999/world/inventory/`,
+	{
+		headers: {
+			token: Astro.cookies.get("authjs.csrf-token").value,
+		},
+	},
+);
+
+if(res.status) {
+	// TODO CLEAR COOKIES
+	return Astro.redirect("/");
+}
+
+const data = await res.json();
 ---
 
-<!-- behind auth -->
 <Layout title="Inventory">
 	<main>
+	
+	
 		<h1>Inventory</h1>
-		
+		<ul>
+			{data.inventory.items?.map(item => <li>{item.name} (rarity: {item.rarity})</li>)}
+		</ul>
+
+
 	</main>
 </Layout>
 
