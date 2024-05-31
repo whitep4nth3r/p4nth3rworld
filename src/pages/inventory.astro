@@ -7,8 +7,8 @@ if(session === null) {
 	return Astro.redirect("/");
 }
 
-const res = await fetch(
-import.meta.env.WORLD_API_URL,
+const inventory = await fetch(
+`${import.meta.env.WORLD_API_URL}inventory/`,
 	{
 		headers: {
 			// @ts-ignore
@@ -17,11 +17,11 @@ import.meta.env.WORLD_API_URL,
 	},
 );
 
-if(res.status === 401) {
+if(inventory.status === 401) {
 	return Astro.redirect("/");
 }
 
-const data = await res.json();
+const data = await inventory.json();
 ---
 
 <Layout title="Inventory" favicon="🎒">

@@ -1,6 +1,23 @@
 ---
 import { getSession } from 'auth-astro/server';
 const session = await getSession(Astro.request);
+
+let data = {location: "Not found"};
+
+if(session !== null) {
+  const location = await fetch(
+    `${import.meta.env.WORLD_API_URL}location/`,
+    {
+      headers: {
+        // @ts-ignore
+        token: session.accessToken
+      },
+    },
+  );
+
+  data = await location.json();
+
+}
 ---
 
 <header>
@@ -25,7 +42,8 @@ const session = await getSession(Astro.request);
 			)
   }
     </div>
-</header>
+  </header>
+  {session && (<p class="location">Current location: {data?.location}</p>)}
 
 <script >
   const { signIn, signOut } = await import("auth-astro/client");
@@ -59,6 +77,12 @@ const session = await getSession(Astro.request);
     display: flex;
     flex-direction: row;
     gap: 1rem;
+  }
+
+  .location {
+    max-width: 768px;
+    text-align: left;
+    margin: auto;
   }
 
   .session {
