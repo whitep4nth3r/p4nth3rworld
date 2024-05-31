@@ -26,6 +26,7 @@ const data = await res.json();
 
 <Layout title="Inventory" favicon="🎒">
 		<h1>{session.user?.name}'s Inventory</h1>
+		<h2>{data.inventory.total} items</h2>
 		<table>
 			<thead>
 				<th>Item</th>
