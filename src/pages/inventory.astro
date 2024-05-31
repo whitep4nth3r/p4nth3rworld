@@ -24,7 +24,7 @@ if(inventory.status === 401) {
 const data = await inventory.json();
 ---
 
-<Layout title="Inventory" favicon="🎒">
+<Layout title="Inventory" favicon="🎒" description="View your items">
 		<h1>{session.user?.name}'s Inventory</h1>
 		<h2>{data.inventory.total} items</h2>
 		<table>
