@@ -1,38 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-import { getSession } from 'auth-astro/server';
-const session = await getSession(Astro.request);
-
 ---
 
 <Layout title="Welcome to p4nth3rworld">
-	<main>
-		<meta id="username" data-session-username={session?.user?.name} />
 		<h1>This is p4nth3rworld</h1>
-
-		{
-			session ? (
-				<p>Welcome {session.user?.name}</p>
-				<a href="/inventory">View inventory</a>
-			) : (
-				<p>Not logged in</p>
-				<button id="login">Login</button>
-			)
-  }
-
-		
-
-  <script >
-    const { signIn } = await import("auth-astro/client");
-
-		const username = document.querySelector("#username").getAttribute("data-session-username");
-		if (username) {
-			const loginButton: HTMLElement = document.querySelector("#login")
-			loginButton.onclick = () => signIn("twitch");
-		}
-  </script>
-		
-	</main>
+		<a href="https://p4nth3rworld-manual.netlify.app/">Read the manual</a>
 </Layout>
 

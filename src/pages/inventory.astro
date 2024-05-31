@@ -7,37 +7,57 @@ if(session === null) {
 	return Astro.redirect("/");
 }
 
-// make the host an env var?
-// set up a prod twitch app with new client ID and secret — add those to production context on netlify
-// add a sign out button into header or whatever
-
 const res = await fetch(
-`http://localhost:8999/world/inventory/`,
+import.meta.env.WORLD_API_URL,
 	{
 		headers: {
-			token: Astro.cookies.get("authjs.csrf-token").value,
+			// @ts-ignore
+			token: session.accessToken
 		},
 	},
 );
 
-if(res.status) {
-	// TODO CLEAR COOKIES
+if(res.status === 401) {
 	return Astro.redirect("/");
 }
 
 const data = await res.json();
 ---
 
-<Layout title="Inventory">
-	<main>
-	
-	
-		<h1>Inventory</h1>
-		<ul>
-			{data.inventory.items?.map(item => <li>{item.name} (rarity: {item.rarity})</li>)}
-		</ul>
-
-
-	</main>
+<Layout title="Inventory" favicon="🎒">
+		<h1>{session.user?.name}'s Inventory</h1>
+		<table>
+			<thead>
+				<th>Item</th>
+				<th class="number">Count</th>
+				<th class="number">Rarity</th>
+			</thead>
+			<tbody>
+				{data.inventory.items?.map(item => <tr><td>{item.name}</td><td class="number">{item.count}</td><td class="number">{item.rarity}</td></tr>)}
+			</tbody>
+		</table>
 </Layout>
+
+<style>
+	table {
+		text-align: left;
+		width: 100%;
+		border-collapse:collapse;
+	}
+
+	th {
+		padding: 0.25rem;
+		border: 1px solid #bbb;
+		background-color: #ccc;
+	}
+
+	td {
+		border: 1px solid #bbb;
+		padding: 0.25rem;
+	}
+
+	.number {
+		text-align: center;
+	}
+</style>
 

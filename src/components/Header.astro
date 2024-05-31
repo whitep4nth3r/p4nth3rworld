@@ -1,0 +1,80 @@
+---
+import { getSession } from 'auth-astro/server';
+const session = await getSession(Astro.request);
+---
+
+<header>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/inventory">Inventory</a>
+  </nav>
+
+  <div>
+      <meta id="username" data-session-username={session?.user?.name} />
+      {
+			session ? (
+        <div class="session">
+          <div>
+            <p>Welcome {session.user?.name}</p>
+            <button id="logout">Log out</button>
+          </div>
+          <img src={session.user.image} height="50" width="50" alt={`${session.user?.name} profile picture`} />
+        </div>
+			) : (
+				<button id="login">Login with Twitch</button>
+			)
+  }
+    </div>
+</header>
+
+<script >
+  const { signIn, signOut } = await import("auth-astro/client");
+
+  const username = document.querySelector("#username").getAttribute("data-session-username");
+  if (!username) {
+    const loginButton: HTMLElement = document.querySelector("#login")
+    loginButton.onclick = () => signIn("twitch");
+  } else {
+    const logoutButton: HTMLElement = document.querySelector("#logout")
+    logoutButton.onclick = () => signOut();
+  }
+</script>
+
+<style>
+  header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem auto;
+  }
+
+  @media screen and (min-width: 768px) {
+    header {
+      flex-direction: row;
+    }
+  }
+
+  nav {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .session {
+    display:grid;
+    grid-template-columns: 4fr 1fr;
+    max-width: 300px;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .session p {
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+  }
+
+  .session img {
+    border-radius: 100%;
+  }
+</style>
