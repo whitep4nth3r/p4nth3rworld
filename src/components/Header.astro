@@ -16,7 +16,6 @@ if(session !== null) {
   );
 
   data = await location.json();
-
 }
 ---
 
@@ -30,7 +29,7 @@ if(session !== null) {
       <meta id="username" data-session-username={session?.user?.name} />
       {
 			session ? (
-        <div class="session">
+        <div>
           <div>
             <p>Welcome {session.user?.name}</p>
             <button id="logout">Log out</button>
@@ -43,7 +42,7 @@ if(session !== null) {
   }
     </div>
   </header>
-  {session && (<p class="location">Current location: {data?.location}</p>)}
+  {session && (<p>Current location: {data?.location}</p>)}
 
 <script >
   const { signIn, signOut } = await import("auth-astro/client");
@@ -57,48 +56,3 @@ if(session !== null) {
     logoutButton.onclick = () => signOut();
   }
 </script>
-
-<style>
-  header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin: 1rem auto;
-  }
-
-  @media screen and (min-width: 768px) {
-    header {
-      flex-direction: row;
-    }
-  }
-
-  nav {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-  }
-
-  .location {
-    max-width: 768px;
-    text-align: left;
-    margin: auto;
-  }
-
-  .session {
-    display:grid;
-    grid-template-columns: 4fr 1fr;
-    max-width: 300px;
-    justify-content: flex-start;
-    gap: 1rem;
-  }
-
-  .session p {
-    margin-bottom: 0.5rem;
-    margin-top: 0;
-  }
-
-  .session img {
-    border-radius: 100%;
-  }
-</style>
