@@ -55,26 +55,46 @@ const gradient_bg = `from-${getBgForLocation(data.inventory.location)}`;
 
 <Layout title="Inventory" favicon="🎒" description="View your items">
 	<section class={`flex flex-col rounded-t-lg p-6 rounded-r-lg justify-center items-center align gap-2 bg-gradient-to-b ${gradient_bg} to-zinc-950`}>
-		<img src={session.user?.image} height="124" width="124" alt={`${session.user?.name} profile picture`} class="rounded-full" />
-		<h1 class="text-3xl">@{session.user?.name}</h1>
+		<img src={session.user?.image} height="124" width="124" alt={`${session.user?.name} profile picture`} class="rounded-full drop-shadow-xl" />
+		<h1 class="text-3xl font-bold">@{session.user?.name}</h1>
 	</section>
 
 	<section class="grid grid-cols-2 gap-3 my-4">
-		<div class="flex flex-col gap-1 bg-zinc-800 rounded-lg p-4">
-			<p class="text-white capitalize font-bold">{data.inventory.location}</p>
-			<p class="text-white">Zone</p>
+		<div class="flex flex-row gap-4 bg-zinc-800 rounded-lg p-4 items-center">
+			<div class="p-4 rounded-full bg-zinc-600 text-white">
+				<img src={`/icons/zones/${data.inventory.location}.svg`} height="32" width="32" alt={data.inventory.location} />
+			</div>
+			<div class="flex flex-col gap-1">
+				<p class="text-white capitalize font-bold">{data.inventory.location}</p>
+				<p class="text-white">Zone</p>
+			</div>
 		</div>
-		<div class="flex flex-col gap-1 bg-zinc-800 rounded-lg p-4">
-			<p class="text-white font-bold">add date</p>
-			<p class="text-white">Last moved</p>
+		<div class="flex flex-row gap-4 bg-zinc-800 rounded-lg p-4 items-center">
+			<div class="p-4 rounded-full bg-zinc-600 text-white">
+				<img src="/icons/utils/move.svg" height="32" width="32" alt="Arrow pointing right to straight vertical line" />
+			</div>
+			<div class="flex flex-col gap-1">
+				<p class="text-white font-bold">Date TBC</p>
+				<p class="text-white">Last moved</p>
+			</div>
 		</div>
-		<div class="flex flex-col gap-1 bg-zinc-800 rounded-lg p-4">
-			<p class="text-white font-bold">{data.inventory.total}</p>
-			<p class="text-white">items</p>
+		<div class="flex flex-row gap-4 bg-zinc-800 rounded-lg p-4 items-center">
+			<div class="p-4 rounded-full bg-zinc-600 text-white">
+				<img src="/icons/utils/pack.svg" height="32" width="32" alt="Backpack" />
+			</div>
+			<div class="flex flex-col gap-1">
+				<p class="text-white font-bold">{data.inventory.total}</p>
+				<p class="text-white">items</p>
+			</div>
 		</div>
-		<div class="flex flex-col gap-1 bg-zinc-800 rounded-lg p-4">
-			<p class="text-white capitalize font-bold">{data.inventory.items[0].name}</p>
-			<p class="text-white">Rarest item ({data.inventory.items[0].rarity})</p>
+		<div class="flex flex-row gap-4 bg-zinc-800 rounded-lg p-4 items-center">
+			<div class="p-4 rounded-full bg-zinc-600 text-white">
+				<img src="/icons/utils/trophy.svg" height="32" width="32" alt="Trophy" />
+			</div>
+			<div class="flex flex-col gap-1">
+				<p class="text-white capitalize font-bold">{data.inventory.items[0].name}</p>
+				<p class="text-white">Rarest item ({data.inventory.items[0].rarity})</p>
+			</div>
 		</div>
 	</section>
 
