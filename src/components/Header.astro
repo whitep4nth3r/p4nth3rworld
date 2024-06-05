@@ -1,22 +1,6 @@
 ---
 import { getSession } from 'auth-astro/server';
 const session = await getSession(Astro.request);
-
-let data = {location: "Not found"};
-
-if(session !== null) {
-  const location = await fetch(
-    `${import.meta.env.WORLD_API_URL}location/`,
-    {
-      headers: {
-        // @ts-ignore
-        token: session.accessToken
-      },
-    },
-  );
-
-  data = await location.json();
-}
 ---
 
 <header>
@@ -26,29 +10,29 @@ if(session !== null) {
   </nav>
 
   <div>
-      <meta id="username" data-session-username={session?.user?.name} />
       {
-			session ? (
+			session !== null ? (
+      <meta id="username" data-session-username={session?.user?.name} />
         <div>
           <div>
             <p>Welcome {session.user?.name}</p>
             <button id="logout">Log out</button>
           </div>
-          <img src={session.user.image} height="50" width="50" alt={`${session.user?.name} profile picture`} />
+          <img src={session.user?.image} height="50" width="50" alt={`${session.user?.name} profile picture`} />
         </div>
 			) : (
 				<button id="login">Login with Twitch</button>
 			)
-  }
+    }
     </div>
   </header>
-  {session && (<p>Current location: {data?.location}</p>)}
 
 <script >
   const { signIn, signOut } = await import("auth-astro/client");
 
-  const username = document.querySelector("#username").getAttribute("data-session-username");
-  if (!username) {
+  const username = document.querySelector("#username");
+
+  if (username === null) {
     const loginButton: HTMLElement = document.querySelector("#login")
     loginButton.onclick = () => signIn("twitch");
   } else {

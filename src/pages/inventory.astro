@@ -17,11 +17,16 @@ const inventory = await fetch(
 	},
 );
 
-if(inventory.status === 401) {
+const data = await inventory.json();
+
+if(data.inventory.status === 401) {
+	Astro.cookies.delete("authjs.callback-url");
+	Astro.cookies.delete("authjs.csrf-token");
+	Astro.cookies.delete("authjs.session-token");
 	return Astro.redirect("/");
 }
 
-const data = await inventory.json();
+//todo - add location
 ---
 
 <Layout title="Inventory" favicon="🎒" description="View your items">
