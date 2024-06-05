@@ -4,7 +4,28 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Welcome to p4nth3rworld" description="The game doesn't stop when the stream ends.">
-		<h1>This is p4nth3rworld</h1>
-		<a href="https://p4nth3rworld-manual.netlify.app/">Read the manual</a>
+	<section class="flex flex-col gap-3 justify-center items-center m-8">
+		<div class="emojis">
+			<span>🎒</span>
+			<span>📦</span>
+			<span>🌍</span>
+			<span>📍</span>
+			<span>🌳</span>
+			<span>🗺️</span>
+		</div>
+		<h1 class="text-4xl font-bold">This is p4nth3rworld</h1>
+		<h2 class="text-2xl">The game doesn't stop when the stream ends.</h2>
+		<a href="https://p4nth3rworld-manual.netlify.app/" class="underline my-8">Read the manual</a>
+	</section>
 </Layout>
 
+<style>
+	.emojis {
+		display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    width: max-content;
+    margin: auto;
+    font-size: clamp(2rem, 4vw, 4rem);
+	}
+</style>
