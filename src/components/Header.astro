@@ -3,8 +3,8 @@ import { getSession } from 'auth-astro/server';
 const session = await getSession(Astro.request);
 ---
 
-<header>
-  <nav>
+<header class="flex justify-between items-center mb-6">
+  <nav class="text-xl font-bold flex flex-row gap-4">
     <a href="/">Home</a>
     {session !== null ? (<a href="/inventory">Inventory</a>) : ""}
   </nav>
@@ -13,15 +13,9 @@ const session = await getSession(Astro.request);
       {
 			session !== null ? (
       <meta id="username" data-session-username={session?.user?.name} />
-        <div>
-          <div>
-            <p>Welcome {session.user?.name}</p>
-            <button id="logout">Log out</button>
-          </div>
-          <img src={session.user?.image} height="50" width="50" alt={`${session.user?.name} profile picture`} />
-        </div>
+        <button id="logout" class="text-white bg-violet-600 text-xl py-2 px-4 rounded-lg">Log out</button>
 			) : (
-				<button id="login">Login with Twitch</button>
+				<button id="login" class="text-white bg-violet-600 text-2l py-2 px-4 rounded-lg">Login with Twitch</button>
 			)
     }
     </div>

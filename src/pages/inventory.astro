@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import InventoryItem from '../components/InventoryItem.astro';
+
 import { getSession } from 'auth-astro/server';
 const session = await getSession(Astro.request);
 
@@ -33,20 +35,53 @@ if(data.inventory.status === 401) {
 	return Astro.redirect("/");
 }
 
-//todo - add location
+function getBgForLocation(location: string): string {
+	switch(location) {
+		case "mountain":
+			return "indigo-400";
+		case "forest":
+			return "emerald-400";
+		case "swamp":
+			return "lime-400";
+		case "city":
+			return "cyan-400";
+		case "desert":
+			return "yellow-400";
+	}
+}
+
+const gradient_bg = `from-${getBgForLocation(data.inventory.location)}`;
 ---
 
 <Layout title="Inventory" favicon="🎒" description="View your items">
-		<h1>{session.user?.name}'s Inventory</h1>
-		<h2>{data.inventory.total} items</h2>
-		<table>
-			<thead>
-				<th>Item</th>
-				<th>Count</th>
-				<th>Rarity</th>
-			</thead>
-			<tbody>
-				{data.inventory.items?.map(item => <tr><td>{item.name}</td><td>{item.count}</td><td>{item.rarity}</td></tr>)}
-			</tbody>
-		</table>
+	<section class={`flex flex-col rounded-t-lg p-6 rounded-r-lg justify-center items-center align gap-2 bg-gradient-to-b ${gradient_bg} to-zinc-950`}>
+		<img src={session.user?.image} height="124" width="124" alt={`${session.user?.name} profile picture`} class="rounded-full" />
+		<h1 class="text-3xl">@{session.user?.name}</h1>
+	</section>
+
+	<section class="grid grid-cols-2 gap-3 my-4">
+		<div class="flex flex-col gap-1 bg-zinc-800 rounded-lg p-4">
+			<p class="text-white capitalize font-bold">{data.inventory.location}</p>
+			<p class="text-white">Zone</p>
+		</div>
+		<div class="flex flex-col gap-1 bg-zinc-800 rounded-lg p-4">
+			<p class="text-white font-bold">add date</p>
+			<p class="text-white">Last moved</p>
+		</div>
+		<div class="flex flex-col gap-1 bg-zinc-800 rounded-lg p-4">
+			<p class="text-white font-bold">{data.inventory.total}</p>
+			<p class="text-white">items</p>
+		</div>
+		<div class="flex flex-col gap-1 bg-zinc-800 rounded-lg p-4">
+			<p class="text-white capitalize font-bold">{data.inventory.items[0].name}</p>
+			<p class="text-white">Rarest item ({data.inventory.items[0].rarity})</p>
+		</div>
+	</section>
+
+	<section class="my-4">
+		<ol class="grid grid-cols-3 gap-3">
+			{data.inventory.items?.map(item => <InventoryItem name={item.name} count={item.count} rarity={item.rarity} />)}
+		</ol>
+	</section>
+
 </Layout>
