@@ -6,7 +6,7 @@ const session = await getSession(Astro.request);
 <header>
   <nav>
     <a href="/">Home</a>
-    <a href="/inventory">Inventory</a>
+    {session !== null ? (<a href="/inventory">Inventory</a>) : ""}
   </nav>
 
   <div>
