@@ -50,12 +50,12 @@ function getBgForLocation(location: string): string {
 	}
 }
 
-const gradient_bg = getBgForLocation(data.inventory.location);
+const gradient_bg = `from-${getBgForLocation(data.inventory.location)}`;
 
 ---
 
 <Layout title="Inventory" favicon="🎒" description="View your items">
-	<section class={`flex flex-col rounded-t-lg p-6 rounded-r-lg justify-center items-center align gap-2 bg-gradient-to-b from-${gradient_bg} to-zinc-950`}>
+	<section class={`flex flex-col rounded-t-lg p-6 rounded-r-lg justify-center items-center align gap-2 bg-gradient-to-b ${gradient_bg} to-zinc-950`}>
 		<img src={session.user?.image} height="124" width="124" alt={`${session.user?.name} profile picture`} class="rounded-full" />
 		<h1 class="text-3xl">@{session.user?.name}</h1>
 	</section>
