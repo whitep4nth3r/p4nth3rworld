@@ -2,14 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 import InventoryItem from '../components/InventoryItem.astro';
 
-type InventoryItem = {
-
-}
-
 import { getSession } from 'auth-astro/server';
 const session = await getSession(Astro.request);
 
 if(session === null) {
+		/* DEV */
+	Astro.cookies.delete("authjs.csrf-token");
+	Astro.cookies.delete("authjs.callback-url");
+	Astro.cookies.delete("authjs.session-token");
+
+	/* PROD */
+	Astro.cookies.delete("__Host-authjs.csrf-token");
+	Astro.cookies.delete("__Secure-authjs.callback-url");
+	Astro.cookies.delete("__Secure-authjs.session-token");
+
 	return Astro.redirect("/");
 }
 
@@ -25,6 +31,7 @@ const inventory = await fetch(
 
 const data = await inventory.json();
 
+
 if(data.inventory.status === 401) {
 	/* DEV */
 	Astro.cookies.delete("authjs.csrf-token");
@@ -38,6 +45,7 @@ if(data.inventory.status === 401) {
 
 	return Astro.redirect("/");
 }
+	
 
 function getBgForLocation(location: string): string {
 	switch(location) {

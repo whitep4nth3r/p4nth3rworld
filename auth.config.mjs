@@ -6,7 +6,6 @@ export default defineConfig({
     Twitch({
       clientId: import.meta.env.AUTH_TWITCH_ID,
       clientSecret: import.meta.env.AUTH_TWITCH_SECRET,
-      type: "oidc",
       issuer: "https://id.twitch.tv/oauth2",
     }),
   ],
