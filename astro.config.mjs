@@ -10,7 +10,7 @@ export default defineConfig({
     auth(),
     tailwind(),
     Sentry({
-      dsn: process.env.SENTRY_DSN,
+      dsn: process.env.PUBLIC_SENTRY_DSN,
       debug: true,
       sourceMapsUploadOptions: {
         project: "p4nth3rworld",
