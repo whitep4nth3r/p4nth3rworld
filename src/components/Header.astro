@@ -2,8 +2,10 @@
 import { getSession } from 'auth-astro/server';
 const session: any = await getSession(Astro.request);
 
-if(session.error) {
+if (session !== null && session?.error) {
   console.log(session?.error);
+} else if (session === null) {
+  console.log('null session')
 }
 
 ---
