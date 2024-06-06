@@ -22,7 +22,7 @@ const session = await getSession(Astro.request);
     </div>
   </header>
 
-<script >
+<script>
   const { signIn, signOut } = await import("auth-astro/client");
 
   const username = document.querySelector("#username");

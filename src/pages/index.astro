@@ -1,6 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+// can't do the below
+
+// import * as Sentry from "@sentry/astro";
+
+// Sentry.captureException("test");
+
 ---
 
 <Layout title="Welcome to p4nth3rworld" description="The game doesn't stop when the stream ends.">
@@ -17,6 +23,17 @@ import Layout from '../layouts/Layout.astro';
 		<h2 class="text-2xl mb-6">The game doesn't stop when the stream ends.</h2>
 		<a href="https://twitch.tv/whitep4nth3r/chat" class="bg-white text-slate-950 py-4 px-8 rounded-lg text-xl">Play at twitch.tv/whitep4nth3r</a>
 		<a href="/manual" class="underline my-8">Read the manual</a>
+		<button data-test>Throw test error</button>
+<script>
+
+
+
+	const button = document.querySelector("[data-test]");
+	button.addEventListener("click", () => {
+		throw new Error("yolo");
+	})
+
+</script>
 	</section>
 </Layout>
 
