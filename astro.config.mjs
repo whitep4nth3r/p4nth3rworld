@@ -11,7 +11,7 @@ export default defineConfig({
     auth(),
     tailwind(),
     Sentry({
-      dsn: import.meta.env.SENTRY_DSN,
+      dsn: "https://4e15bfb05cdfab4664d7a35f9a660669@o4505635661873152.ingest.us.sentry.io/4507384490360832",
       debug: true,
       sourceMapsUploadOptions: {
         project: "p4nth3rworld",
