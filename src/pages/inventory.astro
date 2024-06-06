@@ -5,7 +5,7 @@ import InventoryItem from '../components/InventoryItem.astro';
 import { getSession } from 'auth-astro/server';
 const session: any = await getSession(Astro.request);
 
-if(session === null || session?.error === "RefreshAccessTokenError") {
+if(session === null || session?.error) {
 		/* DEV */
 	Astro.cookies.delete("authjs.csrf-token");
 	Astro.cookies.delete("authjs.callback-url");
