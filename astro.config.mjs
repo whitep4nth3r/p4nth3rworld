@@ -1,9 +1,8 @@
 import { defineConfig } from "astro/config";
 import auth from "auth-astro";
-// import netlify from "@astrojs/netlify";
 import tailwind from "@astrojs/tailwind";
 import Sentry from "@sentry/astro";
-import vercel from "@astrojs/vercel/serverless";
+import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,5 +21,5 @@ export default defineConfig({
     }),
   ],
   output: "server",
-  adapter: vercel(),
+  adapter: netlify(),
 });
