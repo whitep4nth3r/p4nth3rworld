@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import InventoryItem from '../components/InventoryItem.astro';
+import InventoryInfoItem from '../components/InventoryInfoItem.astro';
 
 const { session } = Astro.locals;
 
@@ -49,50 +50,18 @@ const gradient_bg = `from-${getBgForLocation(data.inventory.location)}`;
 		<h1 class="text-3xl font-bold">@{session.user?.name}</h1>
 	</section>
 
-	<section class="grid grid-cols-2 gap-3 my-4">
-		<div class="flex flex-row gap-4 bg-zinc-800 rounded-lg p-4 items-center">
-			<div class="p-4 rounded-full bg-zinc-600 text-white">
-				<img src={`/icons/zones/${data.inventory.location.replace(" ", "-").toLowerCase()}.svg`} height="32" width="32" alt={data.inventory.location} />
-			</div>
-			<div class="flex flex-col gap-1">
-				<p class="text-white capitalize font-bold">{data.inventory.location}</p>
-				<p class="text-white">Zone</p>
-			</div>
-		</div>
-		<div class="flex flex-row gap-4 bg-zinc-800 rounded-lg p-4 items-center">
-			<div class="p-4 rounded-full bg-zinc-600 text-white">
-				<img src="/icons/utils/move.svg" height="32" width="32" alt="Arrow pointing right to straight vertical line" />
-			</div>
-			<div class="flex flex-col gap-1">
-				<p class="text-white font-bold">Date TBC</p>
-				<p class="text-white">Last moved</p>
-			</div>
-		</div>
-		<div class="flex flex-row gap-4 bg-zinc-800 rounded-lg p-4 items-center">
-			<div class="p-4 rounded-full bg-zinc-600 text-white">
-				<img src="/icons/utils/pack.svg" height="32" width="32" alt="Backpack" />
-			</div>
-			<div class="flex flex-col gap-1">
-				<p class="text-white font-bold">{data.inventory.total}</p>
-				<p class="text-white">items</p>
-			</div>
-		</div>
+	<section class="grid  grid-cols-1 sm:grid-cols-2 gap-3 my-4">
+		<InventoryInfoItem icon={`/icons/zones/${data.inventory.location.replace(" ", "-").toLowerCase()}.svg`} iconAlt={data.inventory.location} topText={data.inventory.location} bottomText="Zone" />
+		<InventoryInfoItem icon="/icons/utils/move.svg" iconAlt="Arrow pointing right to straight vertical line" topText="Date TBC" bottomText="Last moved" />
+		<InventoryInfoItem icon="/icons/utils/pack.svg" iconAlt="Backpage" topText={data.inventory.total} bottomText="Items" />
 		{data.inventory.items.length > 0 ? 
-			<div class="flex flex-row gap-4 bg-zinc-800 rounded-lg p-4 items-center">
-				<div class="p-4 rounded-full bg-zinc-600 text-white">
-					<img src="/icons/utils/trophy.svg" height="32" width="32" alt="Trophy" />
-				</div>
-				<div class="flex flex-col gap-1">
-					<p class="text-white capitalize font-bold">{data.inventory.items[0].name}</p>
-					<p class="text-white">Rarest item ({data.inventory.items[0].rarity})</p>
-				</div>
-			</div>
+			<InventoryInfoItem icon="/icons/utils/trophy.svg" iconAlt="Trophy" topText={data.inventory.items[0].name} bottomText={`Rarest item (${data.inventory.items[0].rarity})`} />
 		: ""}
 	</section>
 
 	<section class="my-4">
 		{data.inventory.items.length > 0 ?
-			<ol class="grid grid-cols-3 gap-3">
+			<ol class="grid grid-cols-2 sm:grid-cols-3 gap-3">
 				{data.inventory.items?.map(item => <InventoryItem name={item.name} count={item.count} rarity={item.rarity} />)}
 			</ol>
 		: <h2 class="flex flex-col gap-1 bg-zinc-800 rounded-lg relative text-center p-4 font-bold">No items!</h2>}
