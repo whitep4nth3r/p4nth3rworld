@@ -2,59 +2,27 @@
 import Layout from '../layouts/Layout.astro';
 import InventoryItem from '../components/InventoryItem.astro';
 
-import { getSession } from 'auth-astro/server';
-const session: any = await getSession(Astro.request);
+const { session } = Astro.locals;
 
 if(session === null || session?.error) {
-	console.log(session?.error)
-		/* DEV */
-	Astro.cookies.delete("authjs.csrf-token");
-	Astro.cookies.delete("authjs.callback-url");
-	Astro.cookies.delete("authjs.session-token");
-
-	/* PROD */
-	Astro.cookies.delete("__Host-authjs.csrf-token");
-	Astro.cookies.delete("__Secure-authjs.callback-url");
-	Astro.cookies.delete("__Secure-authjs.session-token");
-
-	return Astro.redirect("/");
+	return Astro.redirect("/logout");
 }
 
-if(session !== null) {
-	console.log(session)
-}
-
-
-const inventory = await fetch(
+const req = await fetch(
 `${import.meta.env.WORLD_API_URL}inventory/`,
 	{
 		headers: {
-			// @ts-ignore
 			token: session.accessToken
 		},
 	},
 );
 
-const data = await inventory.json();
+const data = await req.json();
 
-console.log(data.inventory)
-
-
-
+//todo — backend needs to send proper status
 if(data.inventory.status === 401) {
-	/* DEV */
-	Astro.cookies.delete("authjs.csrf-token");
-	Astro.cookies.delete("authjs.callback-url");
-	Astro.cookies.delete("authjs.session-token");
-
-	/* PROD */
-	Astro.cookies.delete("__Host-authjs.csrf-token");
-	Astro.cookies.delete("__Secure-authjs.callback-url");
-	Astro.cookies.delete("__Secure-authjs.session-token");
-
-	return Astro.redirect("/");
+	return Astro.redirect("/logout");
 }
-	
 
 function getBgForLocation(location: string): string {
 	switch(location) {
@@ -74,6 +42,8 @@ function getBgForLocation(location: string): string {
 }
 
 const gradient_bg = `from-${getBgForLocation(data.inventory.location)}`;
+
+
 ---
 
 <Layout title="Inventory" favicon="🎒" description="View your items">

@@ -1,15 +1,7 @@
 ---
-import { getSession } from 'auth-astro/server';
-const session: any = await getSession(Astro.request);
-
-if (session !== null && session?.error) {
-  console.log(session?.error);
-} else if (session === null) {
-  console.log('null session')
-}
-
+const data = Astro.locals;
+const { session } = data;
 ---
-
 <header class="flex justify-between items-center mb-6">
   <nav class="text-xl font-bold flex flex-row gap-4">
     <a href="/">Home</a>
@@ -21,9 +13,9 @@ if (session !== null && session?.error) {
       {
 			session !== null && !session?.error ? (
       <meta id="username" data-session-username={session?.user?.name} />
-        <button id="logout" class="text-white bg-violet-600 text-xl py-2 px-4 rounded-lg">Log out</button>
+        <button id="logout" class="text-white bg-violet-600 text-xl py-2 px-4 rounded-lg">Log out {session.user.name}</button>
 			) : (
-				<button id="login" class="text-white bg-violet-600 text-2l py-2 px-4 rounded-lg">Login with Twitch</button>
+				<button id="login" class="text-white bg-violet-600 text-2l py-2 px-4 rounded-lg">Log in with Twitch</button>
 			)
     }
     </div>
