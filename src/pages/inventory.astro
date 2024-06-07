@@ -20,6 +20,10 @@ if(session === null || session?.error) {
 	return Astro.redirect("/");
 }
 
+if(session !== null) {
+	console.log(session)
+}
+
 
 const inventory = await fetch(
 `${import.meta.env.WORLD_API_URL}inventory/`,
