@@ -37,6 +37,9 @@ const inventory = await fetch(
 
 const data = await inventory.json();
 
+console.log(data.inventory)
+
+
 
 if(data.inventory.status === 401) {
 	/* DEV */
