@@ -1,9 +1,7 @@
 ---
 // In Astro, we cannot clear cookies as a result of dynamic conditions
 // So when we want to clear cookies to force a logout, we redirect to this page
-
-
-console.log('WE ARE ON LOGOUT')
+// We can't run Auth.js signOut on the server
 
 /* DEV */
 Astro.cookies.delete("authjs.csrf-token");

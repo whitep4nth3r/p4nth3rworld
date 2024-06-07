@@ -4,8 +4,6 @@ import InventoryItem from '../components/InventoryItem.astro';
 
 const { session } = Astro.locals;
 
-console.log(session)
-
 if(session === null || session?.error) {
 	return Astro.redirect("/logout");
 }
@@ -14,20 +12,16 @@ const req = await fetch(
 `${import.meta.env.WORLD_API_URL}inventory/`,
 	{
 		headers: {
-			token: session.accessToken
+			token: session.accessToken,
 		},
 	},
 );
 
-const data = await req.json();
-
-
-//todo — backend needs to send proper status
-if(data.inventory.status === 401) {
-	console.log(data)
-	console.log('should be redirecting to logout')
+if(req.status === 401) {
 	return Astro.redirect("/logout");
 }
+
+const data = await req.json();
 
 function getBgForLocation(location: string): string {
 	switch(location) {
@@ -47,8 +41,6 @@ function getBgForLocation(location: string): string {
 }
 
 const gradient_bg = `from-${getBgForLocation(data.inventory.location)}`;
-
-
 ---
 
 <Layout title="Inventory" favicon="🎒" description="View your items">

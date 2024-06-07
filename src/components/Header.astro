@@ -27,7 +27,7 @@ const { session } = Astro.locals;
 
   if (username === null) {
     const loginButton: HTMLElement = document.querySelector("#login")
-    loginButton.onclick = () => signIn("twitch");
+    loginButton.onclick = () => signIn("twitch", { callbackUrl: '/inventory' });
   } else {
     const logoutButton: HTMLElement = document.querySelector("#logout")
     logoutButton.onclick = () => signOut();
