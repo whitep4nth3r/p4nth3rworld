@@ -1,4 +1,7 @@
 ---
+// In Astro, we cannot clear cookies as a result of dynamic conditions
+// So when we want to clear cookies to force a logout, we redirect to this page
+
 /* DEV */
 Astro.cookies.delete("authjs.csrf-token");
 Astro.cookies.delete("authjs.callback-url");
