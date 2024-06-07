@@ -12,6 +12,8 @@ export default defineConfig({
     Sentry({
       dsn: process.env.PUBLIC_SENTRY_DSN,
       debug: true,
+      replaysSessionSampleRate: 0.1,
+      replaysOnErrorSampleRate: 1.0,
       sourceMapsUploadOptions: {
         project: "p4nth3rworld",
         authToken: process.env.SENTRY_AUTH_TOKEN,
