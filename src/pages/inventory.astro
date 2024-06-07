@@ -22,6 +22,9 @@ const req = await fetch(
 
 const data = await req.json();
 
+
+console.log(data)
+
 //todo — backend needs to send proper status
 if(data.inventory.status === 401) {
 	return Astro.redirect("/logout");
