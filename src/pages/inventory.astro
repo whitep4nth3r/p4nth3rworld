@@ -27,6 +27,7 @@ console.log(data)
 
 //todo — backend needs to send proper status
 if(data.inventory.status === 401) {
+	console.log('should be redirecting to logout')
 	return Astro.redirect("/logout");
 }
 
