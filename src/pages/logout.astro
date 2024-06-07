@@ -11,9 +11,9 @@ Astro.cookies.delete("authjs.callback-url");
 Astro.cookies.delete("authjs.session-token");
 
 /* PROD */
-Astro.cookies.delete("__Host-authjs.csrf-token");
-Astro.cookies.delete("__Secure-authjs.callback-url");
-Astro.cookies.delete("__Secure-authjs.session-token");
+Astro.cookies.delete("__Host-authjs.csrf-token", {httpOnly: true, secure: true});
+Astro.cookies.delete("__Secure-authjs.callback-url", {httpOnly: true, secure: true});
+Astro.cookies.delete("__Secure-authjs.session-token", {httpOnly: true, secure: true});
 
 return Astro.redirect("/");
 ---
