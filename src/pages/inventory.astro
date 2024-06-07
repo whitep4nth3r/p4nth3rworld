@@ -6,7 +6,6 @@ const { session } = Astro.locals;
 
 console.log(session)
 
-
 if(session === null || session?.error) {
 	return Astro.redirect("/logout");
 }

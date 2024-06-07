@@ -10,7 +10,7 @@ export default defineConfig({
     auth(),
     tailwind(),
     Sentry({
-      dsn: process.env.PUBLIC_SENTRY_DSN,
+      dsn: process.env.PUBLIC_ENV === "prod" ? process.env.PUBLIC_SENTRY_DSN : "",
       debug: true,
       replaysSessionSampleRate: 0.1,
       replaysOnErrorSampleRate: 1.0,
