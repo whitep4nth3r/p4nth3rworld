@@ -6,4 +6,6 @@ Sentry.init({
   debug: false,
   integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
   tracePropagationTargets: ["https://p4nth3rb0t-mainframe.herokuapp.com", /\/world\//],
+  replaysOnErrorSampleRate: 1.0,
+  replaysSessionSampleRate: 1.0,
 });
