@@ -12,7 +12,6 @@ Sentry.init({
       colorScheme: "system",
     }),
   ],
-  tracePropagationTargets: [/https:\/\/p4nth3rb0t-mainframe.herokuapp\.com\/world/],
   replaysOnErrorSampleRate: 1.0,
   replaysSessionSampleRate: 1.0,
 });
