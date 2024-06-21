@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "p4nth3rworld",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -19,5 +19,8 @@
     "auth-astro": "^4.1.1",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
+  },
+  "overrides": {
+    "@opentelemetry/api": "^1.9.0"
   }
 }
