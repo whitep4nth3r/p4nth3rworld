@@ -4,4 +4,4 @@
   publish = "dist"
 
 [functions]
-  included_files = ["/node_modules/@opentelemetry/instrumentation/hook.mjs"]
+  included_files = ["node_modules/@opentelemetry/instrumentation/hook.mjs"]
