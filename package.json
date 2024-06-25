@@ -14,7 +14,7 @@
     "@astrojs/netlify": "^5.2.1",
     "@astrojs/tailwind": "^5.1.0",
     "@auth/core": "^0.32.0",
-    "@sentry/astro": "^8.10.0",
+    "@sentry/astro": "^8.12.0",
     "astro": "^4.10.3",
     "auth-astro": "^4.1.1",
     "tailwindcss": "^3.4.3",
